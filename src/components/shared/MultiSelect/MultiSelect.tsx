@@ -24,8 +24,8 @@ export default function MultiSelect({
   const { handleScrollTop } = useScrollTop(scrollContainerRef)
 
   const handleToggleSelect = (item: Record<string, any>) => {
-    const { idField, nameField } = item
-    dispatch({ type: 'TOGGLE', payload: { idField, nameField } })
+    const { idField, labelField } = item
+    dispatch({ type: 'TOGGLE', payload: { idField, labelField } })
   }
 
   const handleRemoveSelectItem = (item: string, event?: React.MouseEvent<HTMLButtonElement>) => {

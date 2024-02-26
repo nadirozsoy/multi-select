@@ -16,14 +16,14 @@ const INITIAL_STATE = {
 const multiSelectReducer = (state: IMultiSelectState, action: IMultiSelectAction): IMultiSelectState => {
   switch (action.type) {
     case 'TOGGLE': {
-      const { idField, nameField } = action.payload
+      const { idField, labelField } = action.payload
       const isSelected = state.selectedItems.some(item => item.idField === idField)
 
       return {
         ...state,
         selectedItems: isSelected
           ? state.selectedItems.filter(item => item.idField !== idField)
-          : [...state.selectedItems, { idField, nameField }],
+          : [...state.selectedItems, { idField, labelField }],
         formItems: isSelected ? state.formItems.filter(formId => formId !== idField) : [...state.formItems, idField]
       }
     }

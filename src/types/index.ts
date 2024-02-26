@@ -17,7 +17,7 @@ export type ICustomItem = {
 
 export type ICustomSelectItem = {
   idField: string
-  nameField: string
+  labelField: string
 }
 
 export type IMultiSelectState = {

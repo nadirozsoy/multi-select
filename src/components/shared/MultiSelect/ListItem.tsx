@@ -26,13 +26,13 @@ export default function ListItem({
       <li
         key={item?.id}
         className={`flex h-fit cursor-pointer items-center gap-4 rounded-xl bg-primary/10 p-2 text-sm transition-all duration-150 hover:bg-primary/50 ${isSelected ? 'bg-primary/30' : 'text-black'}`}
-        onClick={() => handleToggleSelect({ idField: item?.id, nameField: item?.name ?? item?.title })}
+        onClick={() => handleToggleSelect({ idField: item?.id, labelField: item?.name ?? item?.title })}
       >
         <input
           type='checkbox'
           id={item?.id}
           checked={isSelected}
-          onChange={() => handleToggleSelect({ idField: item?.id, nameField: item?.name ?? item?.title })}
+          onChange={() => handleToggleSelect({ idField: item?.id, labelField: item?.name ?? item?.title })}
           onClick={e => e.stopPropagation()}
           className='cursor-pointer'
         />
