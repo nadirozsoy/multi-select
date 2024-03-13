@@ -7,7 +7,7 @@ import { useInView } from 'react-intersection-observer'
 
 export default function Homepage() {
   const {
-    characters,
+    transformedCharacters,
     fetchNextPage: fetchNextPageCharacters,
     hasNextPage: hasNextPageCharacters,
     isFetchingNextPage: isFetchingNextPageCharacters,
@@ -17,7 +17,7 @@ export default function Homepage() {
     error: errorCharacters
   } = useCharacters()
   const {
-    locations,
+    transformedLocations,
     fetchNextPage: fetchNextPageLocations,
     isFetchingNextPage: isFetchingNextPageLocations,
     hasNextPage: hasNextPageLocations,
@@ -45,7 +45,7 @@ export default function Homepage() {
     <div className='containerSmall mt-12'>
       <div className='mx-auto flex w-fit flex-col items-center gap-4'>
         <MultiSelect
-          options={characters?.pages}
+          options={transformedCharacters}
           handleSearch={handleSearchCharacters}
           isLoading={isLoadingCharacters}
           isError={isErrorCharacters}
@@ -67,7 +67,7 @@ export default function Homepage() {
           </button>
         </MultiSelect>
         <MultiSelect
-          options={locations?.pages}
+          options={transformedLocations}
           handleSearch={handleSearchLocations}
           isLoading={isLoadingLocations}
           isError={isErrorLocations}

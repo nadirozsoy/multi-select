@@ -44,8 +44,16 @@ export function useLocations() {
     })
   }
 
+  const transformedLocations = locations?.pages
+    .map(page => page.results)
+    .flat()
+    .map((location: any) => ({
+      value: location.id,
+      label: location.name
+    }))
+
   return {
-    locations,
+    transformedLocations,
     isLoading,
     isError,
     isSuccess,

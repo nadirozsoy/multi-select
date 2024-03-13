@@ -116,19 +116,18 @@ export default function MultiSelect({
             </div>
           )}
           <div className='flex h-full flex-col'>
-            {options?.map((page: any, i) => (
-              <ul key={i} className='grid gap-4'>
-                {page?.results?.map((item: any) => (
-                  <ListItem
-                    key={item?.id}
-                    item={item}
-                    handleToggleSelect={handleToggleSelect}
-                    selectedItems={selectedItems}
-                    searchTerm={searchTerm}
-                  />
-                ))}
-              </ul>
-            ))}
+            <ul className='grid gap-4'>
+              {options?.map(item => (
+                <ListItem
+                  key={item?.value}
+                  item={item}
+                  handleToggleSelect={handleToggleSelect}
+                  selectedItems={selectedItems}
+                  searchTerm={searchTerm}
+                />
+              ))}
+            </ul>
+
             {isLoading && <Loader2 className='animate-spin' />}
             {isError && <p className='mx-auto mt-auto text-red-500'>{error.error}</p>}
             {children}

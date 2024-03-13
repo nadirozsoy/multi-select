@@ -44,7 +44,18 @@ export function useCharacters() {
     })
   }
 
+  const transformedCharacters = characters?.pages
+    .map(page => page.results)
+    .flat()
+    .map((character: any) => ({
+      value: character.id,
+      label: character.name,
+      image: character.image,
+      episode: character.episode
+    }))
+
   return {
+    transformedCharacters,
     characters,
     isLoading,
     isError,

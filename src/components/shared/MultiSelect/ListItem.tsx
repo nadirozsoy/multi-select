@@ -13,26 +13,26 @@ export default function ListItem({
   selectedItems: ICustomSelectItem[]
   searchTerm: string | null
 }) {
-  const name = item?.name ?? item?.title
-  const lowerCaseName = name.toLowerCase()
-  const lowerCaseSearchTerm = (searchTerm || '').toLowerCase()
+  const name = item?.label
+  const lowerCaseName = name.toLowerCase().trim()
+  const lowerCaseSearchTerm = (searchTerm || '').toLowerCase().trim()
   const startIndex = lowerCaseName.indexOf(lowerCaseSearchTerm)
   const endIndex = startIndex + lowerCaseSearchTerm.length
 
-  const isSelected = selectedItems.some(selectedItem => selectedItem.idField === item?.id)
+  const isSelected = selectedItems.some(selectedItem => selectedItem.idField === item?.value)
 
   return (
     <>
       <li
-        key={item?.id}
+        key={item?.value}
         className={`flex h-fit cursor-pointer items-center gap-4 rounded-xl bg-primary/10 p-2 text-sm transition-all duration-150 hover:bg-primary/50 ${isSelected ? 'bg-primary/30' : 'text-black'}`}
-        onClick={() => handleToggleSelect({ idField: item?.id, labelField: item?.name ?? item?.title })}
+        onClick={() => handleToggleSelect({ idField: item?.value, labelField: item?.label })}
       >
         <input
           type='checkbox'
-          id={item?.id}
+          id={item?.value}
           checked={isSelected}
-          onChange={() => handleToggleSelect({ idField: item?.id, labelField: item?.name ?? item?.title })}
+          onChange={() => handleToggleSelect({ idField: item?.value, labelField: item?.label })}
           onClick={e => e.stopPropagation()}
           className='cursor-pointer'
         />
