@@ -7,7 +7,7 @@ import { Homepage, NotFound } from '@/_app/pages'
 function App() {
   return (
     <>
-      <main>
+      <div>
         <Routes>
           <Route
             element={
@@ -21,7 +21,7 @@ function App() {
 
           <Route path='*' element={<NotFound />} />
         </Routes>
-      </main>
+      </div>
     </>
   )
 }
