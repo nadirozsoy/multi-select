@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useReducer, useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { ChevronDown, Loader2 } from 'lucide-react'
 import SelectItem from './SelectItem'
 import ListItem from './ListItem'
 import { IMultiSelectProps } from '@/types'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { useScrollTop } from '@/helpers/useScrollTop'
-import { INITIAL_STATE, multiSelectReducer } from '@/reducers/multiSelectReducer'
 import { cn } from '@/lib/utils'
+import { useFocusManagement } from '@/hooks/useFocusManagement'
+import { useToggleDropdown } from '@/hooks/useToggleDropdown'
+import { useToggleSelect } from '@/hooks/useToggleSelect'
+import { useSearchTerm } from '@/hooks/useSearchTerm'
 
 export default function MultiSelect({
   options,
@@ -18,10 +21,12 @@ export default function MultiSelect({
   isError,
   error
 }: IMultiSelectProps) {
-  const [{ isOpen, selectedItems, searchTerm }, dispatch] = useReducer(multiSelectReducer, INITIAL_STATE)
+  const { handleBlur, handleFocus, isFocused } = useFocusManagement()
+  const { closeDropdown, isOpen, openDropdown, toggleDropdown } = useToggleDropdown()
+  const { handleRemoveSelectItemFun, handleToggleSelectFun, selectedItems } = useToggleSelect()
+  const { handleSearchTermChange, searchTerm } = useSearchTerm()
 
   const [focusedIndex, setFocusedIndex] = useState(-1)
-  const [isFocused, setIsFocused] = useState(false)
 
   const multiSelectRef = useRef<HTMLDivElement | null>(null)
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
@@ -31,7 +36,7 @@ export default function MultiSelect({
 
   const handleToggleSelect = (item: Record<string, any>) => {
     const { idField, labelField } = item
-    dispatch({ type: 'TOGGLE', payload: { idField, labelField } })
+    handleToggleSelectFun(idField, labelField)
   }
 
   const handleRemoveSelectItem = (item: string, event?: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,28 +44,11 @@ export default function MultiSelect({
       event.preventDefault()
       event.stopPropagation()
     }
-    dispatch({ type: 'REMOVE', payload: item })
-  }
-
-  const toggleDropdown = () => {
-    dispatch({ type: 'TOGGLE_DROPDOWN' })
-    setIsFocused(true)
-  }
-
-  const handleSetIsOpen = (isOpen: boolean) => {
-    dispatch({ type: 'SET_IS_OPEN', payload: isOpen })
+    handleRemoveSelectItemFun(item)
   }
 
   const handleSetSearchTerm = (searchTerm: string | null) => {
-    dispatch({ type: 'SET_SEARCH_TERM', payload: String(searchTerm) })
-  }
-
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
-
-  const handleBlur = () => {
-    setIsFocused(false)
+    handleSearchTermChange(searchTerm || '')
   }
 
   const handleOpenDropdown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -68,9 +56,9 @@ export default function MultiSelect({
     const isEnterKey = e.key === 'Enter'
 
     if (isEnterKey && !isOpen && isFocused) {
-      handleSetIsOpen(true)
+      openDropdown()
     } else if (isEscapeKey) {
-      handleSetIsOpen(false)
+      closeDropdown()
     }
   }
 
@@ -79,7 +67,7 @@ export default function MultiSelect({
     handleScrollTop()
     handleSetSearchTerm(searchTerm === '' ? null : searchTerm)
     handleSearch(searchTerm === '' ? null : searchTerm)
-    handleSetIsOpen(true)
+    openDropdown()
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -100,7 +88,7 @@ export default function MultiSelect({
       )
     } else if (e.key === 'Escape') {
       e.preventDefault()
-      handleSetIsOpen(false)
+      closeDropdown()
     }
   }
 
@@ -112,8 +100,8 @@ export default function MultiSelect({
   }, [focusedIndex])
 
   useClickOutside(multiSelectRef, () => {
-    handleSetIsOpen(false)
-    setIsFocused(false)
+    closeDropdown()
+    handleBlur()
   })
 
   return (
