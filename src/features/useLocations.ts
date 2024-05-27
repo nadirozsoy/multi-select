@@ -48,8 +48,8 @@ export function useLocations() {
     .map(page => page.results)
     .flat()
     .map((location: any) => ({
-      value: location.id,
-      label: location.name
+      value: location?.id,
+      label: location?.name
     }))
 
   return {

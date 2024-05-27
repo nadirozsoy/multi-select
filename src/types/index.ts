@@ -3,7 +3,7 @@
 export type IMultiSelectProps = {
   options?: any[]
   className?: string
-  handleSearch: (value: string) => void
+  handleSearch: (value: string | null) => void
   children?: React.ReactNode
   isLoading: boolean
   isError: boolean
@@ -30,7 +30,7 @@ export type IMultiSelectState = {
   handleToggleSelectDropdown: () => void
   handleSetIsOpen: (isOpen: boolean) => void
   handleOpenDropdown: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  handleSetSearchTerm: (searchTerm: string) => void
+  handleSetSearchTerm: (searchTerm: string | null) => void
 }
 
 export type IMultiSelectAction =

@@ -13,7 +13,7 @@ export default function SelectItem({
     <>
       <span
         key={item?.idField}
-        className='flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary/30 p-2 text-slate-900'
+        className='bg-tertiary flex items-center gap-2 whitespace-nowrap rounded-xl p-2 text-white'
       >
         {item?.labelField}
         <X

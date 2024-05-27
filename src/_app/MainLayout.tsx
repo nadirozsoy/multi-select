@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function MainLayout() {
   return (
-    <div className='min-h-dvh bg-slate-200'>
+    <div className='bg-primary-10 min-h-dvh'>
       <MainHeader />
       <main className='min-h-[calc(100dvh-16rem)] max-sm:min-h-[calc(100dvh-24rem)]'>
         <Outlet />

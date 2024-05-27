@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function MainHeader() {
   return (
     <header>
-      <nav className='border-gray-200 bg-white px-4 py-5 lg:px-6 dark:bg-gray-800'>
+      <nav className='border-primary bg-primary px-4 py-5 lg:px-6'>
         <div className='containerSmall flex items-center justify-between max-sm:flex-col'>
           <div className='flex items-center gap-4'>
             <CopyCheck color='white' size={25} />
