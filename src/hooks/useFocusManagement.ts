@@ -6,7 +6,7 @@ type FocusState = {
 }
 
 const initialState: FocusState = {
-  isFocused: null
+  isFocused: false
 }
 
 function focusReducer(state: FocusState, action: FocusAction): FocusState {

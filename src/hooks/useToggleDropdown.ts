@@ -38,11 +38,8 @@ function dropdownReducer(state: DropdownState, action: DropdownAction): Dropdown
 export function useToggleDropdown() {
   const [{ isOpen }, dispatch] = useReducer(dropdownReducer, initialState)
 
-  const { handleFocus } = useFocusManagement()
-
   const toggleDropdown = () => {
     dispatch({ type: 'TOGGLE', payload: !isOpen })
-    handleFocus()
   }
 
   const openDropdown = () => {

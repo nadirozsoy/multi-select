@@ -109,6 +109,8 @@ export default function MultiSelect({
       ref={multiSelectRef}
       className={`relative flex w-[35rem] ${className ?? ''}`}
       onKeyDown={handleKeyDown}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       tabIndex={0}
     >
       <div className='w-full space-y-2'>
@@ -119,8 +121,6 @@ export default function MultiSelect({
             isFocused ? 'border-primary shadow-primary' : ''
           )}
           onClick={toggleDropdown}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           onKeyDown={handleOpenDropdown}
         >
           {selectedItems.length > 0 ? (
