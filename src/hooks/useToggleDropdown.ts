@@ -1,5 +1,4 @@
 import { useReducer } from 'react'
-import { useFocusManagement } from './useFocusManagement'
 
 type DropdownAction =
   | { type: 'TOGGLE'; payload: boolean }
